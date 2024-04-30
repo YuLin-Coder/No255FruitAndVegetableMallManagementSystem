@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.OrdersMapper">
+	<resultMap id="BaseResultMap" type="com.entity.Orders">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="PRICE" property="price" jdbcType="VARCHAR" />
+		<result column="REC_ADDRES_ID" property="recAddresId" jdbcType="VARCHAR" />
+		<result column="USE_FLAG" property="useFlag" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_OPERATOR" property="updateOperator"
+			jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="CREATE_OPERATOR" property="createOperator"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, ORDER_NO, USER_ID, PRICE, REC_ADDRES_ID, USE_FLAG,
+		REMARK, STATUS,
+		UPDATE_TIME,
+		UPDATE_OPERATOR, CREATE_TIME,
+		CREATE_OPERATOR
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from orders
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from orders
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.entity.Orders">
+		insert into orders (ID,
+		ORDER_NO, USER_ID,
+		PRICE, REC_ADDRES_ID, USE_FLAG,
+		REMARK, STATUS,
+		UPDATE_TIME,
+		UPDATE_OPERATOR, CREATE_TIME, CREATE_OPERATOR
+		)
+		values
+		(#{id,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},
+		#{price,jdbcType=VARCHAR},
+		#{recAddresId,jdbcType=VARCHAR}, #{useFlag,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{updateOperator,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{createOperator,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.entity.Orders">
+		insert into orders
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="orderNo != null">
+				ORDER_NO,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="price != null">
+				PRICE,
+			</if>
+			<if test="recAddresId != null">
+				REC_ADDRES_ID,
+			</if>
+			<if test="useFlag != null">
+				USE_FLAG,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="updateOperator != null">
+				UPDATE_OPERATOR,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="createOperator != null">
+				CREATE_OPERATOR,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=VARCHAR},
+			</if>
+			<if test="recAddresId != null">
+				#{recAddresId,jdbcType=VARCHAR},
+			</if>
+			<if test="useFlag != null">
+				#{useFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateOperator != null">
+				#{updateOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createOperator != null">
+				#{createOperator,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.entity.Orders">
+		update orders
+		<set>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=VARCHAR},
+			</if>
+			<if test="recAddresId != null">
+				REC_ADDRES_ID = #{recAddresId,jdbcType=VARCHAR},
+			</if>
+			<if test="useFlag != null">
+				USE_FLAG = #{useFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateOperator != null">
+				UPDATE_OPERATOR = #{updateOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createOperator != null">
+				CREATE_OPERATOR = #{createOperator,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.entity.Orders">
+		update orders
+		set
+		ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+		USER_ID =
+		#{userId,jdbcType=VARCHAR},
+		PRICE = #{price,jdbcType=VARCHAR},
+		REC_ADDRES_ID = #{recAddresId,jdbcType=VARCHAR},
+		USE_FLAG =
+		#{useFlag,jdbcType=VARCHAR},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=VARCHAR},
+		UPDATE_TIME =
+		#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_OPERATOR =
+		#{updateOperator,jdbcType=VARCHAR},
+		CREATE_TIME =
+		#{createTime,jdbcType=TIMESTAMP},
+		CREATE_OPERATOR =
+		#{createOperator,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 自定义 -->
+	<select id="getTotal" parameterType="com.entity.Orders"
+		resultType="int">
+		SELECT COUNT(*) FROM orders o
+		left join rec_address a on a.id = o.rec_addres_id
+		left join
+		users u on u.id = o.user_id
+		where o.order_no like
+		'%${orderNo}%' and o.status != 'D'
+		<if test="userId != null and userId != ''">
+		and o.user_id = #{userId}
+		</if>
+		<if test="flag == 'user'">
+		and o.use_flag in ('0','2')
+		</if>
+		<if test="flag == 'admin'">
+		and o.use_flag in ('0','1')
+		</if>
+	</select>
+	<select id="getList" resultMap="BaseResultMap" parameterType="com.entity.Orders">
+		select
+		o.*,u.nick_name as nickName,a.name as name, a.tel as tel, a.address as address
+		from
+		orders o
+		left join rec_address a on a.id = o.rec_addres_id
+		left join
+		users u on u.id = o.user_id
+		where o.order_no like
+		'%${orderNo}%' and o.status != 'D'
+		<if test="userId != null and userId != ''">
+		and o.user_id = #{userId}
+		</if>
+		<if test="flag == 'user'">
+		and o.use_flag in ('0','2')
+		</if>
+		<if test="flag == 'admin'">
+		and o.use_flag in ('0','1')
+		</if>
+		LIMIT
+		#{page},#{limit}
+	</select>
+</mapper>

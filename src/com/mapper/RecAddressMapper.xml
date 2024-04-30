@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.RecAddressMapper">
+	<resultMap id="BaseResultMap" type="com.entity.RecAddress">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="TEL" property="tel" jdbcType="VARCHAR" />
+		<result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_OPERATOR" property="updateOperator"
+			jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="CREATE_OPERATOR" property="createOperator"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, USER_ID, NAME, TEL, ADDRESS, REMARK, STATUS, UPDATE_TIME,
+		UPDATE_OPERATOR, CREATE_TIME,
+		CREATE_OPERATOR
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from rec_address
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from rec_address
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.entity.RecAddress">
+		insert into rec_address (ID, USER_ID, NAME,
+		TEL, ADDRESS, REMARK,
+		STATUS, UPDATE_TIME, UPDATE_OPERATOR,
+		CREATE_TIME, CREATE_OPERATOR)
+		values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{tel,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+		#{updateOperator,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{createOperator,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.entity.RecAddress">
+		insert into rec_address
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="tel != null">
+				TEL,
+			</if>
+			<if test="address != null">
+				ADDRESS,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="updateOperator != null">
+				UPDATE_OPERATOR,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="createOperator != null">
+				CREATE_OPERATOR,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateOperator != null">
+				#{updateOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createOperator != null">
+				#{createOperator,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.entity.RecAddress">
+		update rec_address
+		<set>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				TEL = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				ADDRESS = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateOperator != null">
+				UPDATE_OPERATOR = #{updateOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createOperator != null">
+				CREATE_OPERATOR = #{createOperator,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.entity.RecAddress">
+		update rec_address
+		set USER_ID = #{userId,jdbcType=VARCHAR},
+		NAME = #{name,jdbcType=VARCHAR},
+		TEL = #{tel,jdbcType=VARCHAR},
+		ADDRESS = #{address,jdbcType=VARCHAR},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=VARCHAR},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_OPERATOR = #{updateOperator,jdbcType=VARCHAR},
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		CREATE_OPERATOR = #{createOperator,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 自定义 -->
+	<select id="getTotal" parameterType="com.entity.RecAddress"
+		resultType="int">
+		SELECT COUNT(*) FROM rec_address where
+		status != 'D'
+		<if test="userId != null and userId !=''">
+		and user_id = #{userId}
+		</if>
+	</select>
+	<select id="getList" resultMap="BaseResultMap" parameterType="com.entity.RecAddress">
+		select
+		<include refid="Base_Column_List" />
+		from rec_address
+		where status != 'D'
+		<if test="userId != null and userId !=''">
+		and user_id = #{userId}
+		</if>
+		LIMIT
+		#{page},#{limit}
+	</select>
+</mapper>

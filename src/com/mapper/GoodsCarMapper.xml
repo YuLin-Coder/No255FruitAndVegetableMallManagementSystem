@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.GoodsCarMapper">
+	<resultMap id="BaseResultMap" type="com.entity.GoodsCar">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="GOODS_ID" property="goodsId" jdbcType="VARCHAR" />
+		<result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+		<result column="AMOUNT" property="amount" jdbcType="VARCHAR" />
+		<result column="USE_FLAG" property="useFlag" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_OPERATOR" property="updateOperator"
+			jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="CREATE_OPERATOR" property="createOperator"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, GOODS_ID, USER_ID, AMOUNT, USE_FLAG, REMARK, STATUS,
+		UPDATE_TIME,
+		UPDATE_OPERATOR,
+		CREATE_TIME, CREATE_OPERATOR
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from goods_car
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		goods_car
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.entity.GoodsCar">
+		insert into goods_car (ID,
+		GOODS_ID, USER_ID,
+		AMOUNT, USE_FLAG, REMARK,
+		STATUS, UPDATE_TIME,
+		UPDATE_OPERATOR,
+		CREATE_TIME, CREATE_OPERATOR)
+		values
+		(#{id,jdbcType=VARCHAR}, #{goodsId,jdbcType=VARCHAR},
+		#{userId,jdbcType=VARCHAR},
+		#{amount,jdbcType=VARCHAR},
+		#{useFlag,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},
+		#{updateOperator,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP},
+		#{createOperator,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.entity.GoodsCar">
+		insert into goods_car
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="goodsId != null">
+				GOODS_ID,
+			</if>
+			<if test="userId != null">
+				USER_ID,
+			</if>
+			<if test="amount != null">
+				AMOUNT,
+			</if>
+			<if test="useFlag != null">
+				USE_FLAG,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="updateOperator != null">
+				UPDATE_OPERATOR,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="createOperator != null">
+				CREATE_OPERATOR,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsId != null">
+				#{goodsId,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				#{amount,jdbcType=VARCHAR},
+			</if>
+			<if test="useFlag != null">
+				#{useFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateOperator != null">
+				#{updateOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createOperator != null">
+				#{createOperator,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.entity.GoodsCar">
+		update goods_car
+		<set>
+			<if test="goodsId != null">
+				GOODS_ID = #{goodsId,jdbcType=VARCHAR},
+			</if>
+			<if test="userId != null">
+				USER_ID = #{userId,jdbcType=VARCHAR},
+			</if>
+			<if test="amount != null">
+				AMOUNT = #{amount,jdbcType=VARCHAR},
+			</if>
+			<if test="useFlag != null">
+				USE_FLAG = #{useFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateOperator != null">
+				UPDATE_OPERATOR = #{updateOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createOperator != null">
+				CREATE_OPERATOR = #{createOperator,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.entity.GoodsCar">
+		update goods_car
+		set GOODS_ID = #{goodsId,jdbcType=VARCHAR},
+		USER_ID =
+		#{userId,jdbcType=VARCHAR},
+		AMOUNT = #{amount,jdbcType=VARCHAR},
+		USE_FLAG = #{useFlag,jdbcType=VARCHAR},
+		REMARK =
+		#{remark,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=VARCHAR},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_OPERATOR =
+		#{updateOperator,jdbcType=VARCHAR},
+		CREATE_TIME =
+		#{createTime,jdbcType=TIMESTAMP},
+		CREATE_OPERATOR =
+		#{createOperator,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 自定义 -->
+	<select id="getTotal" parameterType="com.entity.GoodsCar"
+		resultType="int">
+		SELECT COUNT(*) FROM goods_car gc
+		LEFT JOIN goods g ON g.ID = gc.GOODS_ID
+		AND g.`STATUS` != 'D'
+		AND g.USE_FLAG = '1' where gc.status != 'D'
+	</select>
+	<select id="getList" resultMap="BaseResultMap" parameterType="com.entity.GoodsCar">
+		SELECT
+			gc.*, g.PRICE AS goodsPrice,
+			g.`NAME` AS goodsName,
+			g.GOODS_IMG AS goodsImg,
+			g.STOCK_AMOUNT AS goodsStock,
+			g.PRICE * gc.AMOUNT AS sumPrice
+		FROM
+			goods_car gc
+		LEFT JOIN goods g ON g.ID = gc.GOODS_ID
+		AND g.`STATUS` != 'D'
+		AND g.USE_FLAG = '1'
+		WHERE
+			gc.STATUS != 'D'
+		LIMIT #{page},#{limit}
+	</select>
+	<select id="getGoodsByGoodsId" resultMap="BaseResultMap" parameterType="com.entity.GoodsCar">
+		select
+		<include refid="Base_Column_List" />
+		from goods_car
+		where goods_id = #{goodsId}
+		and user_id = #{userId}
+		and status != 'D'
+		limit 1
+	</select>
+</mapper>

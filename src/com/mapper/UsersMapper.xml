@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.UsersMapper">
+	<resultMap id="BaseResultMap" type="com.entity.Users">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="NICK_NAME" property="nickName" jdbcType="VARCHAR" />
+		<result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+		<result column="HEAD_IMG" property="headImg" jdbcType="VARCHAR" />
+		<result column="MAIL" property="mail" jdbcType="VARCHAR" />
+		<result column="TEL" property="tel" jdbcType="VARCHAR" />
+		<result column="SEX" property="sex" jdbcType="VARCHAR" />
+		<result column="USE_FLAG" property="useFlag" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_OPERATOR" property="updateOperator"
+			jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="CREATE_OPERATOR" property="createOperator"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, NICK_NAME, PASSWORD, HEAD_IMG, MAIL, TEL, SEX,
+		USE_FLAG, REMARK,
+		STATUS, UPDATE_TIME,
+		UPDATE_OPERATOR, CREATE_TIME,
+		CREATE_OPERATOR
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from users
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from users
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.entity.Users">
+		insert into users (ID,
+		NICK_NAME, PASSWORD,
+		HEAD_IMG, MAIL, TEL,
+		SEX, USE_FLAG, REMARK,
+		STATUS,
+		UPDATE_TIME, UPDATE_OPERATOR,
+		CREATE_TIME, CREATE_OPERATOR)
+		values
+		(#{id,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{headImg,jdbcType=VARCHAR},
+		#{mail,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR},
+		#{sex,jdbcType=VARCHAR}, #{useFlag,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR},
+		#{updateTime,jdbcType=TIMESTAMP}, #{updateOperator,jdbcType=VARCHAR},
+		#{createTime,jdbcType=TIMESTAMP}, #{createOperator,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.entity.Users">
+		insert into users
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="nickName != null">
+				NICK_NAME,
+			</if>
+			<if test="password != null">
+				PASSWORD,
+			</if>
+			<if test="headImg != null">
+				HEAD_IMG,
+			</if>
+			<if test="mail != null">
+				MAIL,
+			</if>
+			<if test="tel != null">
+				TEL,
+			</if>
+			<if test="sex != null">
+				SEX,
+			</if>
+			<if test="useFlag != null">
+				USE_FLAG,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="updateOperator != null">
+				UPDATE_OPERATOR,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="createOperator != null">
+				CREATE_OPERATOR,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="nickName != null">
+				#{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="headImg != null">
+				#{headImg,jdbcType=VARCHAR},
+			</if>
+			<if test="mail != null">
+				#{mail,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				#{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="useFlag != null">
+				#{useFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateOperator != null">
+				#{updateOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createOperator != null">
+				#{createOperator,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.entity.Users">
+		update users
+		<set>
+			<if test="nickName != null">
+				NICK_NAME = #{nickName,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				PASSWORD = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="headImg != null">
+				HEAD_IMG = #{headImg,jdbcType=VARCHAR},
+			</if>
+			<if test="mail != null">
+				MAIL = #{mail,jdbcType=VARCHAR},
+			</if>
+			<if test="tel != null">
+				TEL = #{tel,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				SEX = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="useFlag != null">
+				USE_FLAG = #{useFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateOperator != null">
+				UPDATE_OPERATOR = #{updateOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createOperator != null">
+				CREATE_OPERATOR = #{createOperator,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.entity.Users">
+		update users
+		set
+		NICK_NAME = #{nickName,jdbcType=VARCHAR},
+		PASSWORD =
+		#{password,jdbcType=VARCHAR},
+		HEAD_IMG = #{headImg,jdbcType=VARCHAR},
+		MAIL = #{mail,jdbcType=VARCHAR},
+		TEL = #{tel,jdbcType=VARCHAR},
+		SEX =
+		#{sex,jdbcType=VARCHAR},
+		USE_FLAG = #{useFlag,jdbcType=VARCHAR},
+		REMARK
+		= #{remark,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=VARCHAR},
+		UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_OPERATOR =
+		#{updateOperator,jdbcType=VARCHAR},
+		CREATE_TIME =
+		#{createTime,jdbcType=TIMESTAMP},
+		CREATE_OPERATOR =
+		#{createOperator,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 自定义 -->
+	<select id="getTotal" parameterType="com.entity.Users"
+		resultType="int">
+		SELECT COUNT(*) FROM users where nick_name like
+		'%${nickName}%' and status != 'D'
+	</select>
+	<select id="getList" resultMap="BaseResultMap" parameterType="com.entity.Users">
+		select
+		<include refid="Base_Column_List" />
+		from users
+		where nick_name like
+		'%${nickName}%' and status != 'D'
+		LIMIT #{page},#{limit}
+	</select>
+	<select id="login" parameterType="com.entity.Users" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from users
+		where status != 'D'
+		and tel = #{tel} and password =
+		#{password}
+	</select>
+	<select id="checkRepeat" parameterType="com.entity.Users"
+		resultType="int">
+		select COUNT(*) FROM users where status != 'D'
+		<if test="checkFlag == 'nickName'">
+			and nick_name = #{nickName}
+		</if>
+		<if test="checkFlag == 'tel'">
+			and tel = #{tel}
+		</if>
+		<if test="checkFlag == 'mail'">
+			and mail = #{mail}
+		</if>
+		<if test="flag == 'edit'">
+			and id != #{id}
+		</if>
+	</select>
+</mapper>

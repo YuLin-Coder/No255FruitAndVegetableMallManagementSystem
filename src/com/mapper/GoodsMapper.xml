@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.GoodsMapper">
+	<resultMap id="BaseResultMap" type="com.entity.Goods">
+		<id column="ID" property="id" jdbcType="VARCHAR" />
+		<result column="NAME" property="name" jdbcType="VARCHAR" />
+		<result column="TYPE_ID" property="typeId" jdbcType="VARCHAR" />
+		<result column="PRICE" property="price" jdbcType="VARCHAR" />
+		<result column="GOODS_IMG" property="goodsImg" jdbcType="VARCHAR" />
+		<result column="STOCK_AMOUNT" property="stockAmount" jdbcType="VARCHAR" />
+		<result column="USE_FLAG" property="useFlag" jdbcType="VARCHAR" />
+		<result column="REMARK" property="remark" jdbcType="VARCHAR" />
+		<result column="STATUS" property="status" jdbcType="VARCHAR" />
+		<result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+		<result column="UPDATE_OPERATOR" property="updateOperator"
+			jdbcType="VARCHAR" />
+		<result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="CREATE_OPERATOR" property="createOperator"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.entity.Goods"
+		extends="BaseResultMap">
+		<result column="DES" property="des" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, NAME, TYPE_ID, PRICE, GOODS_IMG, STOCK_AMOUNT,
+		USE_FLAG, REMARK,
+		STATUS, UPDATE_TIME,
+		UPDATE_OPERATOR, CREATE_TIME,
+		CREATE_OPERATOR
+	</sql>
+	<sql id="Blob_Column_List">
+		DES
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.String">
+		select
+			g.*,t.name as typeName,
+			IFNULL(SUM(CONVERT(o.amount,SIGNED)),0) AS saleAmount
+		from goods g
+		left join goods_type t on t.id = g.type_id and t.status != 'D'
+		LEFT JOIN orders_info o on o.goods_id = g.id
+		where g.ID = #{id,jdbcType=VARCHAR}
+		group by g.id
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from goods
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.entity.Goods">
+		insert into goods (ID, NAME,
+		TYPE_ID,
+		PRICE, GOODS_IMG, STOCK_AMOUNT,
+		USE_FLAG, REMARK, STATUS,
+		UPDATE_TIME, UPDATE_OPERATOR, CREATE_TIME,
+		CREATE_OPERATOR, DES)
+		values
+		(#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+		#{typeId,jdbcType=VARCHAR},
+		#{price,jdbcType=VARCHAR},
+		#{goodsImg,jdbcType=VARCHAR}, #{stockAmount,jdbcType=VARCHAR},
+		#{useFlag,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR},
+		#{updateTime,jdbcType=TIMESTAMP},
+		#{updateOperator,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+		#{createOperator,jdbcType=VARCHAR}, #{des,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.entity.Goods">
+		insert into goods
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="name != null">
+				NAME,
+			</if>
+			<if test="typeId != null">
+				TYPE_ID,
+			</if>
+			<if test="price != null">
+				PRICE,
+			</if>
+			<if test="goodsImg != null">
+				GOODS_IMG,
+			</if>
+			<if test="stockAmount != null">
+				STOCK_AMOUNT,
+			</if>
+			<if test="useFlag != null">
+				USE_FLAG,
+			</if>
+			<if test="remark != null">
+				REMARK,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME,
+			</if>
+			<if test="updateOperator != null">
+				UPDATE_OPERATOR,
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME,
+			</if>
+			<if test="createOperator != null">
+				CREATE_OPERATOR,
+			</if>
+			<if test="des != null">
+				DES,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="typeId != null">
+				#{typeId,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				#{price,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsImg != null">
+				#{goodsImg,jdbcType=VARCHAR},
+			</if>
+			<if test="stockAmount != null">
+				#{stockAmount,jdbcType=VARCHAR},
+			</if>
+			<if test="useFlag != null">
+				#{useFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateOperator != null">
+				#{updateOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createOperator != null">
+				#{createOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="des != null">
+				#{des,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.entity.Goods">
+		update goods
+		<set>
+			<if test="name != null">
+				NAME = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="typeId != null">
+				TYPE_ID = #{typeId,jdbcType=VARCHAR},
+			</if>
+			<if test="price != null">
+				PRICE = #{price,jdbcType=VARCHAR},
+			</if>
+			<if test="goodsImg != null">
+				GOODS_IMG = #{goodsImg,jdbcType=VARCHAR},
+			</if>
+			<if test="stockAmount != null">
+				STOCK_AMOUNT = #{stockAmount,jdbcType=VARCHAR},
+			</if>
+			<if test="useFlag != null">
+				USE_FLAG = #{useFlag,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				REMARK = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="updateTime != null">
+				UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateOperator != null">
+				UPDATE_OPERATOR = #{updateOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="createTime != null">
+				CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createOperator != null">
+				CREATE_OPERATOR = #{createOperator,jdbcType=VARCHAR},
+			</if>
+			<if test="des != null">
+				DES = #{des,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.entity.Goods">
+		update
+		goods
+		set NAME = #{name,jdbcType=VARCHAR},
+		TYPE_ID =
+		#{typeId,jdbcType=VARCHAR},
+		PRICE = #{price,jdbcType=VARCHAR},
+		GOODS_IMG = #{goodsImg,jdbcType=VARCHAR},
+		STOCK_AMOUNT =
+		#{stockAmount,jdbcType=VARCHAR},
+		USE_FLAG =
+		#{useFlag,jdbcType=VARCHAR},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=VARCHAR},
+		UPDATE_TIME =
+		#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_OPERATOR =
+		#{updateOperator,jdbcType=VARCHAR},
+		CREATE_TIME =
+		#{createTime,jdbcType=TIMESTAMP},
+		CREATE_OPERATOR =
+		#{createOperator,jdbcType=VARCHAR},
+		DES = #{des,jdbcType=LONGVARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.entity.Goods">
+		update goods
+		set
+		NAME = #{name,jdbcType=VARCHAR},
+		TYPE_ID = #{typeId,jdbcType=VARCHAR},
+		PRICE = #{price,jdbcType=VARCHAR},
+		GOODS_IMG =
+		#{goodsImg,jdbcType=VARCHAR},
+		STOCK_AMOUNT =
+		#{stockAmount,jdbcType=VARCHAR},
+		USE_FLAG =
+		#{useFlag,jdbcType=VARCHAR},
+		REMARK = #{remark,jdbcType=VARCHAR},
+		STATUS = #{status,jdbcType=VARCHAR},
+		UPDATE_TIME =
+		#{updateTime,jdbcType=TIMESTAMP},
+		UPDATE_OPERATOR =
+		#{updateOperator,jdbcType=VARCHAR},
+		CREATE_TIME =
+		#{createTime,jdbcType=TIMESTAMP},
+		CREATE_OPERATOR =
+		#{createOperator,jdbcType=VARCHAR}
+		where ID = #{id,jdbcType=VARCHAR}
+	</update>
+
+	<!-- 自定义 -->
+	<select id="getTotal" parameterType="com.entity.Goods"
+		resultType="int">
+		SELECT COUNT(*) FROM goods where name like
+		'%${name}%' and
+		status != 'D'
+		<if test="typeId != null and typeId != ''">
+		and type_Id = #{typeId}
+		</if>
+		<if test="flag =='list'">
+		and use_flag = '1'
+		</if>
+	</select>
+	<select id="getList" resultMap="BaseResultMap" parameterType="com.entity.Goods">
+		select
+		 g.*,t.name as typeName,
+		 IFNULL(SUM(CONVERT(o.amount,SIGNED)),0) AS saleAmount
+		from goods g
+		left join goods_type t on t.id = g.type_id and t.status != 'D'
+		LEFT JOIN orders_info o on o.goods_id = g.id
+		where g.name like
+		'%${name}%' and g.status != 'D'
+		<if test="typeId != null and typeId != ''">
+		and g.type_Id = #{typeId}
+		</if>
+		<if test="flag =='list'">
+		and g.use_flag = '1'
+		</if>
+		GROUP BY g.ID
+		<if test="checkFlag == 'hot'">
+			ORDER BY SUM(o.AMOUNT) DESC
+		</if>
+		<if test="checkFlag == 'new'">
+			ORDER BY g.CREATE_TIME DESC
+		</if>
+		LIMIT
+		#{page},#{limit}
+	</select>
+	<select id="selectBuyGoodsList" resultMap="ResultMapWithBLOBs">
+	 select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods
+    where ID IN
+    <foreach collection="array" item="goodsId" index="index" open="(" close=")" separator=",">
+    	#{goodsId}
+  	</foreach>
+  	and status != 'D'
+	</select>
+	
+	<select id="selectBuyCarGoodsList" resultMap="ResultMapWithBLOBs">
+	select
+		g.*,
+		u.nick_name as userName,
+		t.name as typeName,
+		c.amount*g.price as sumPrice,
+		c.amount as amount
+		from goods
+		g
+		left join goods_type t on t.id = g.type_id and t.status != 'D'
+		left join goods_car c on c.goods_id = g.id and c.status != 'D'
+		left join users u on u.id = c.user_id and u.status != 'D'
+		where 
+		g.ID IN
+	    <foreach collection="goodsId" item="goodsId" index="index" open="(" close=")" separator=",">
+	    	#{goodsId}
+	  	</foreach>
+	  	<if test="userId != '' and userId != null">
+	  	and c.user_id = #{userId}
+	  	</if>
+	  	and g.status != 'D'
+	</select>
+</mapper>
